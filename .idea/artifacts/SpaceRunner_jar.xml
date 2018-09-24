@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SpaceRunner:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SpaceRunner_jar</output-path>
+    <root id="archive" name="SpaceRunner.jar">
+      <element id="module-output" name="SpaceRunner" />
+    </root>
+  </artifact>
+</component>
