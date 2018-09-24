@@ -1,6 +1,8 @@
 package View;
 
 import Model.SpaceRunnerButton;
+import Model.SpaceRunnerSubscene;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
@@ -24,7 +26,9 @@ public class ViewManager {
     private final static int MENU_BUTTONS_START_X = 100;
     private final static int MENU_BUTTONS_START_Y = 150;
 
-    List<SpaceRunnerButton> menuButtons;
+    private SpaceRunnerSubscene creditsSubScene;
+
+    private List<SpaceRunnerButton> menuButtons;
 
     public ViewManager(){
         menuButtons = new ArrayList<>();
@@ -32,9 +36,18 @@ public class ViewManager {
         mainScene = new Scene(mainPane, WIDTH, HEIGHT);
         mainStage = new Stage();
         mainStage.setScene(mainScene);
+
         createButton();
         createBackground();
         createLogo();
+        createSubScenes();
+
+
+    }
+
+    private void createSubScenes(){
+        creditsSubScene = new SpaceRunnerSubscene();
+        mainPane.getChildren().add(creditsSubScene);
     }
 
     public Stage getMainStage(){
@@ -75,6 +88,8 @@ public class ViewManager {
     private void createCreditsButton(){
         SpaceRunnerButton creditsButton = new SpaceRunnerButton("CREDITS");
         addMenuButton(creditsButton);
+
+        creditsButton.setOnAction(actionEvent -> creditsSubScene.moveSubScene());
     }
 
     private void createExitButton(){

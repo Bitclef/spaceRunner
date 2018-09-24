@@ -9,7 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class SpaceRunnerButton extends Button {
-    private final String FONT_PATH = "src/Model/Resources/font.ttf";
+    private final String FONT_PATH = "Resources/font.ttf";
     private final String BUTTON_PRESSED = "-fx-background-color: transparent; -fx-background-image: url('/Model/Resources/yellow_button_pressed.png');";
     private final String BUTTON_NOT_PRESSED = "-fx-background-color: transparent; -fx-background-image: url('/Model/Resources/yellow_button.png');";
 
@@ -24,11 +24,7 @@ public class SpaceRunnerButton extends Button {
     }
 
     private void setButtonFont() {
-        try {
-            setFont(Font.loadFont(new FileInputStream(FONT_PATH), 23));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+            setFont(Font.loadFont(getClass().getResourceAsStream(FONT_PATH), 23));
     }
 
     private void setBUTTON_PRESSED() {
