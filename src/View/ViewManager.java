@@ -31,7 +31,7 @@ public class ViewManager {
     private List<SpaceRunnerButton> menuButtons;
 
     private List<ShipPicker> shipsList;
-    private SHIP choosenShip;
+    private SHIP chosenShip;
 
     public ViewManager(){
         menuButtons = new ArrayList<>();
@@ -97,7 +97,7 @@ public class ViewManager {
                     ship1.setIsCircleChosen(false);
                 }
                 shipToPick.setIsCircleChosen(true);
-                choosenShip = shipToPick.getShip();
+                chosenShip = shipToPick.getShip();
             });
         }
         box.setLayoutX(300 - (118 * 2));
