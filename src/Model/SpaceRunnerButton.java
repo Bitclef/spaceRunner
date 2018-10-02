@@ -5,9 +5,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;
 import javafx.scene.text.Font;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
 public class SpaceRunnerButton extends Button {
     private final String FONT_PATH = "Resources/font.ttf";
     private final String BUTTON_PRESSED = "-fx-background-color: transparent; -fx-background-image: url('/Model/Resources/yellow_button_pressed.png');";
