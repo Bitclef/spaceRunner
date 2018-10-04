@@ -15,7 +15,7 @@ import java.util.Random;
 public class GameViewManager {
 
     private static final int GAME_WIDTH = 600;
-    private static final int GAME_HEIGHT = 800;
+    private static final int GAME_HEIGHT = 700;
     private final static String METEOR_BROWN_IMAGE = "/ShipChooser/meteor_brown.png";
     private final static String METEOR_GRAY_IMAGE = "/ShipChooser/meteor_gray.png";
     private final String BACKGROUND_IMAGE = "/blue.png";
@@ -96,15 +96,28 @@ public class GameViewManager {
     }
 
     private void moveGameElements() {
-
+        boolean leftRight = false;
         for (ImageView brownMeteor : brownMeteors) {
             brownMeteor.setLayoutY(brownMeteor.getLayoutY() + 10);
-            brownMeteor.setRotate(brownMeteor.getRotate() + 5);
+            if(leftRight){
+                brownMeteor.setRotate(brownMeteor.getRotate() + 5);
+                leftRight = false;
+            }else{
+                brownMeteor.setRotate(brownMeteor.getRotate() - 5);
+                leftRight = true;
+            }
         }
 
         for (ImageView grayMeteor : grayMeteors) {
             grayMeteor.setLayoutY(grayMeteor.getLayoutY() + 10);
-            grayMeteor.setRotate(grayMeteor.getRotate() + 5);
+            if(leftRight){
+                grayMeteor.setRotate(grayMeteor.getRotate() + 5);
+                leftRight = false;
+            }else{
+                grayMeteor.setRotate(grayMeteor.getRotate() - 5);
+                leftRight = true;
+            }
+
         }
 
     }
