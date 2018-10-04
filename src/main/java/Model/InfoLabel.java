@@ -12,10 +12,10 @@ import javafx.scene.text.Font;
 
 public class InfoLabel extends Label {
 
-    private final static String FONT_PATH = "Resources/font.ttf";
-    private final static String BACKGROUND_IMAGE = "View/Resources/ShipChooser/buttonYellow.png";
+    private final static String FONT_PATH = "/font.ttf";
+    private final static String BACKGROUND_IMAGE = "/ShipChooser/buttonYellow.png";
 
-    public InfoLabel(String text){
+    public InfoLabel(String text) {
 
         setPrefWidth(380);
         setPrefHeight(49);
@@ -30,7 +30,7 @@ public class InfoLabel extends Label {
         setBackground(new Background(backgroundImage));
     }
 
-    private void setLabelFont(){
+    private void setLabelFont() {
         setFont(Font.loadFont(getClass().getResourceAsStream(FONT_PATH), 23));
     }
 

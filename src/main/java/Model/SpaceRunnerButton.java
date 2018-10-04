@@ -6,9 +6,9 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.text.Font;
 
 public class SpaceRunnerButton extends Button {
-    private final String FONT_PATH = "Resources/font.ttf";
-    private final String BUTTON_PRESSED = "-fx-background-color: transparent; -fx-background-image: url('/Model/Resources/yellow_button_pressed.png');";
-    private final String BUTTON_NOT_PRESSED = "-fx-background-color: transparent; -fx-background-image: url('/Model/Resources/yellow_button.png');";
+    private final String FONT_PATH = "/font.ttf";
+    private final String BUTTON_PRESSED = "-fx-background-color: transparent; -fx-background-image: url('/yellow_button_pressed.png');";
+    private final String BUTTON_NOT_PRESSED = "-fx-background-color: transparent; -fx-background-image: url('/yellow_button.png');";
 
     public SpaceRunnerButton(String text) {
 
@@ -21,7 +21,7 @@ public class SpaceRunnerButton extends Button {
     }
 
     private void setButtonFont() {
-            setFont(Font.loadFont(getClass().getResourceAsStream(FONT_PATH), 23));
+        setFont(Font.loadFont(getClass().getResourceAsStream(FONT_PATH), 23));
     }
 
     private void setBUTTON_PRESSED() {

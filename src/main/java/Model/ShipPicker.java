@@ -10,14 +10,14 @@ public class ShipPicker extends VBox {
     private ImageView circleImage;
     private ImageView shipImage;
 
-    private String circleChosen = "View/Resources/ShipChooser/not_chosen_ship.png";
-    private String circleNotChosen = "View/Resources/ShipChooser/chosen_ship.png";
+    private String circleChosen = "/ShipChooser/not_chosen_ship.png";
+    private String circleNotChosen = "/ShipChooser/chosen_ship.png";
 
     private SHIP ship;
 
     private boolean isCircleChosen;
 
-    public ShipPicker(SHIP ship){
+    public ShipPicker(SHIP ship) {
         circleImage = new ImageView(circleNotChosen);
         shipImage = new ImageView(ship.getUrlShip());
         this.ship = ship;
@@ -29,15 +29,15 @@ public class ShipPicker extends VBox {
 
     }
 
-    public SHIP getShip(){
+    public SHIP getShip() {
         return ship;
     }
 
-    public boolean getIsCircleChosen(){
+    public boolean getIsCircleChosen() {
         return isCircleChosen;
     }
 
-    public void setIsCircleChosen(boolean isCircleChosen){
+    public void setIsCircleChosen(boolean isCircleChosen) {
         this.isCircleChosen = isCircleChosen;
         String imageToSet = this.isCircleChosen ? circleChosen : circleNotChosen;
         circleImage.setImage(new Image(imageToSet));

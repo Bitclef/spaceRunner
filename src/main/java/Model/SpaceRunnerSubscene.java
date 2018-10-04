@@ -1,7 +1,6 @@
 package Model;
 
 import javafx.animation.TranslateTransition;
-import javafx.scene.Parent;
 import javafx.scene.SubScene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -9,8 +8,8 @@ import javafx.util.Duration;
 
 public class SpaceRunnerSubscene extends SubScene {
 
-    private final static String FONT_PATH = "src/Model/Resources/font.ttf";
-    private final static String BACKGROUND_IMAGE = "Model/Resources/yellow_panel.png";
+    private final static String FONT_PATH = "/font.ttf";
+    private final static String BACKGROUND_IMAGE = "/yellow_panel.png";
 
     private boolean isHidden;
 
@@ -32,15 +31,15 @@ public class SpaceRunnerSubscene extends SubScene {
 
     }
 
-    public void moveSubScene(){
+    public void moveSubScene() {
         TranslateTransition transition = new TranslateTransition();
         transition.setDuration(Duration.seconds(0.3));
         transition.setNode(this);
 
-        if(isHidden){
+        if (isHidden) {
             transition.setToX(-676);
             isHidden = false;
-        }else{
+        } else {
             transition.setToX(0);
             isHidden = true;
         }
@@ -48,7 +47,7 @@ public class SpaceRunnerSubscene extends SubScene {
         transition.play();
     }
 
-    public AnchorPane getPane(){
+    public AnchorPane getPane() {
         return (AnchorPane) this.getRoot();
     }
 }

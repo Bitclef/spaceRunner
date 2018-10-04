@@ -14,33 +14,27 @@ import java.util.Random;
 
 public class GameViewManager {
 
+    private static final int GAME_WIDTH = 600;
+    private static final int GAME_HEIGHT = 800;
+    private final static String METEOR_BROWN_IMAGE = "/ShipChooser/meteor_brown.png";
+    private final static String METEOR_GRAY_IMAGE = "/ShipChooser/meteor_gray.png";
+    private final String BACKGROUND_IMAGE = "/blue.png";
+    Random randomPositionGenerator;
     private AnchorPane gamePane;
     private Scene gameScene;
     private Stage gameStage;
-
-    private static final int GAME_WIDTH = 600;
-    private static final int GAME_HEIGHT = 800;
-
     private Stage menuStage;
     private ImageView ship;
-
     private boolean isLeftKeyPressed;
     private boolean isRightKeyPressed;
     private int angle;
     private AnimationTimer gameTimer;
-
     private GridPane gridPane1;
     private GridPane gridPane2;
-    private final String BACKGROUND_IMAGE = "View/Resources/blue.png";
-
-    private final static String METEOR_BROWN_IMAGE = "View/Resources/ShipChooser/meteor_brown.png";
-    private final static String METEOR_GRAY_IMAGE = "View/Resources/ShipChooser/meteor_gray.png";
-
     private ImageView[] brownMeteors;
     private ImageView[] grayMeteors;
-    Random randomPositionGenerator;
 
-    public GameViewManager(){
+    public GameViewManager() {
         initializeStage();
         createKeyListeners();
         randomPositionGenerator = new Random();
@@ -49,17 +43,17 @@ public class GameViewManager {
     private void createKeyListeners() {
 
         gameScene.setOnKeyPressed(event -> {
-            if(event.getCode() == KeyCode.LEFT){
+            if (event.getCode() == KeyCode.LEFT) {
                 isLeftKeyPressed = true;
-            }else if(event.getCode() == KeyCode.RIGHT){
+            } else if (event.getCode() == KeyCode.RIGHT) {
                 isRightKeyPressed = true;
             }
         });
 
         gameScene.setOnKeyReleased(event -> {
-            if(event.getCode() == KeyCode.LEFT){
+            if (event.getCode() == KeyCode.LEFT) {
                 isLeftKeyPressed = false;
-            }else if(event.getCode() == KeyCode.RIGHT){
+            } else if (event.getCode() == KeyCode.RIGHT) {
                 isRightKeyPressed = false;
             }
         });
@@ -74,7 +68,7 @@ public class GameViewManager {
 
     }
 
-    public void createNewGame(Stage menuStage, SHIP chosenShip){
+    public void createNewGame(Stage menuStage, SHIP chosenShip) {
         this.menuStage = menuStage;
         this.menuStage.hide();
         createBackground();
@@ -85,23 +79,23 @@ public class GameViewManager {
         gameStage.show();
     }
 
-    private void createGameElements(){
+    private void createGameElements() {
         brownMeteors = new ImageView[5];
-        for(int i = 0; i < brownMeteors.length; i++){
+        for (int i = 0; i < brownMeteors.length; i++) {
             brownMeteors[i] = new ImageView(METEOR_BROWN_IMAGE);
             setNewElementPosition(brownMeteors[i]);
             gamePane.getChildren().add(brownMeteors[i]);
         }
 
         grayMeteors = new ImageView[5];
-        for(int i = 0; i < grayMeteors.length; i++){
+        for (int i = 0; i < grayMeteors.length; i++) {
             grayMeteors[i] = new ImageView(METEOR_GRAY_IMAGE);
             setNewElementPosition(grayMeteors[i]);
             gamePane.getChildren().add(grayMeteors[i]);
         }
     }
 
-    private void moveGameElements(){
+    private void moveGameElements() {
 
         for (ImageView brownMeteor : brownMeteors) {
             brownMeteor.setLayoutY(brownMeteor.getLayoutY() + 4);
@@ -115,32 +109,32 @@ public class GameViewManager {
 
     }
 
-    private void checkIfElementsAreBelowTheShipAndRelocate(){
+    private void checkIfElementsAreBelowTheShipAndRelocate() {
 
-        for(ImageView brownMeteors : brownMeteors){
-            if(brownMeteors.getLayoutY() > 900)
+        for (ImageView brownMeteors : brownMeteors) {
+            if (brownMeteors.getLayoutY() > 900)
                 setNewElementPosition(brownMeteors);
         }
 
-        for(ImageView grayMeteors : grayMeteors){
-            if(grayMeteors.getLayoutY() > 900)
+        for (ImageView grayMeteors : grayMeteors) {
+            if (grayMeteors.getLayoutY() > 900)
                 setNewElementPosition(grayMeteors);
         }
     }
 
-    private void setNewElementPosition(ImageView image){
+    private void setNewElementPosition(ImageView image) {
         image.setLayoutX(randomPositionGenerator.nextInt(580));
         image.setLayoutY(-(randomPositionGenerator.nextInt(3200) + 600));
     }
 
-    private void createShip(SHIP chosenShip){
+    private void createShip(SHIP chosenShip) {
         ship = new ImageView(chosenShip.getUrlShip());
         ship.setLayoutX(GAME_WIDTH >> 1);
         ship.setLayoutY(GAME_HEIGHT - 90);
         gamePane.getChildren().add(ship);
     }
 
-    private void createGameLoop(){
+    private void createGameLoop() {
         gameTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -154,42 +148,42 @@ public class GameViewManager {
         gameTimer.start();
     }
 
-    private void moveShip(){
+    private void moveShip() {
 
-        if(isLeftKeyPressed && !isRightKeyPressed){
-            if(angle > -30){
+        if (isLeftKeyPressed && !isRightKeyPressed) {
+            if (angle > -30) {
                 angle -= 5;
             }
             ship.setRotate(angle);
-            if(ship.getLayoutX() > -20){
+            if (ship.getLayoutX() > -20) {
                 ship.setLayoutX(ship.getLayoutX() - 3);
             }
         }
-        if(isRightKeyPressed && !isLeftKeyPressed){
-            if(angle < 30){
+        if (isRightKeyPressed && !isLeftKeyPressed) {
+            if (angle < 30) {
                 angle += 5;
             }
             ship.setRotate(angle);
-            if(ship.getLayoutX() < 522){
+            if (ship.getLayoutX() < 522) {
                 ship.setLayoutX(ship.getLayoutX() + 3);
             }
 
         }
-        if(!isLeftKeyPressed && !isRightKeyPressed || isLeftKeyPressed && isRightKeyPressed){
-            if(angle < 0)
+        if (!isLeftKeyPressed && !isRightKeyPressed || isLeftKeyPressed && isRightKeyPressed) {
+            if (angle < 0)
                 angle += 5;
-            else if(angle > 0)
+            else if (angle > 0)
                 angle -= 5;
             ship.setRotate(angle);
         }
 
     }
 
-    private void createBackground(){
+    private void createBackground() {
         gridPane1 = new GridPane();
         gridPane2 = new GridPane();
 
-        for(int i = 0; i < 12; i++){
+        for (int i = 0; i < 12; i++) {
             ImageView backgroundImage1 = new ImageView(BACKGROUND_IMAGE);
             ImageView backgroundImage2 = new ImageView(BACKGROUND_IMAGE);
             GridPane.setConstraints(backgroundImage1, i % 3, i / 3);
@@ -203,15 +197,15 @@ public class GameViewManager {
         gamePane.getChildren().addAll(gridPane1, gridPane2);
     }
 
-    private void moveBackground(){
+    private void moveBackground() {
         gridPane1.setLayoutY(gridPane1.getLayoutY() + 0.5);
         gridPane2.setLayoutY(gridPane2.getLayoutY() + 0.5);
 
-        if(gridPane1.getLayoutY() >= 1024){
+        if (gridPane1.getLayoutY() >= 1024) {
             gridPane1.setLayoutY(-1024);
         }
 
-        if(gridPane2.getLayoutY() >= 1024){
+        if (gridPane2.getLayoutY() >= 1024) {
             gridPane2.setLayoutY(-1024);
         }
     }

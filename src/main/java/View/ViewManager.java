@@ -14,13 +14,11 @@ import java.util.List;
 
 public class ViewManager {
     private static final int WIDTH = 1024, HEIGHT = 768;
+    private final static int MENU_BUTTONS_START_X = 100;
+    private final static int MENU_BUTTONS_START_Y = 150;
     private AnchorPane mainPane;
     private Scene mainScene;
     private Stage mainStage;
-
-    private final static int MENU_BUTTONS_START_X = 100;
-    private final static int MENU_BUTTONS_START_Y = 150;
-
     private SpaceRunnerSubscene creditsSubScene;
     private SpaceRunnerSubscene helpSubScene;
     private SpaceRunnerSubscene scoreSubScene;
@@ -33,7 +31,7 @@ public class ViewManager {
     private List<ShipPicker> shipsList;
     private SHIP chosenShip;
 
-    public ViewManager(){
+    public ViewManager() {
         menuButtons = new ArrayList<>();
         mainPane = new AnchorPane();
         mainScene = new Scene(mainPane, WIDTH, HEIGHT);
@@ -48,8 +46,8 @@ public class ViewManager {
 
     }
 
-    private void showSubScene(SpaceRunnerSubscene subScene){
-        if(sceneToHide != null){
+    private void showSubScene(SpaceRunnerSubscene subScene) {
+        if (sceneToHide != null) {
             sceneToHide.moveSubScene();
         }
 
@@ -58,7 +56,7 @@ public class ViewManager {
 
     }
 
-    private void createSubScenes(){
+    private void createSubScenes() {
         creditsSubScene = new SpaceRunnerSubscene();
         mainPane.getChildren().add(creditsSubScene);
 
@@ -84,16 +82,16 @@ public class ViewManager {
         shipChooserScene.getPane().getChildren().add(createButtonToStart());
     }
 
-    private HBox createShipsToChoose(){
+    private HBox createShipsToChoose() {
         HBox box = new HBox();
         box.setSpacing(20);
         shipsList = new ArrayList<>();
-        for(SHIP ship : SHIP.values()){
+        for (SHIP ship : SHIP.values()) {
             ShipPicker shipToPick = new ShipPicker(ship);
             shipsList.add(shipToPick);
             box.getChildren().add(shipToPick);
             shipToPick.setOnMouseClicked(event -> {
-                for(ShipPicker ship1 : shipsList){
+                for (ShipPicker ship1 : shipsList) {
                     ship1.setIsCircleChosen(false);
                 }
                 shipToPick.setIsCircleChosen(true);
@@ -105,13 +103,13 @@ public class ViewManager {
         return box;
     }
 
-    private SpaceRunnerButton createButtonToStart(){
+    private SpaceRunnerButton createButtonToStart() {
         SpaceRunnerButton startButton = new SpaceRunnerButton("START");
         startButton.setLayoutX(350);
         startButton.setLayoutY(300);
 
         startButton.setOnAction(event -> {
-            if(chosenShip != null){
+            if (chosenShip != null) {
                 GameViewManager gameManager = new GameViewManager();
                 gameManager.createNewGame(mainStage, chosenShip);
             }
@@ -120,11 +118,11 @@ public class ViewManager {
         return startButton;
     }
 
-    public Stage getMainStage(){
+    public Stage getMainStage() {
         return mainStage;
     }
 
-    private void addMenuButton(SpaceRunnerButton button){
+    private void addMenuButton(SpaceRunnerButton button) {
         button.setLayoutX(MENU_BUTTONS_START_X);
         button.setLayoutY(MENU_BUTTONS_START_Y + menuButtons.size() * 100);
         menuButtons.add(button);
@@ -140,53 +138,53 @@ public class ViewManager {
         createExitButton();
     }
 
-    private void createStartButton(){
+    private void createStartButton() {
         SpaceRunnerButton startButton = new SpaceRunnerButton("PLAY");
         addMenuButton(startButton);
 
         startButton.setOnAction(actionEvent -> showSubScene(shipChooserScene));
     }
 
-    private void createScoreButton(){
+    private void createScoreButton() {
         SpaceRunnerButton scoreButton = new SpaceRunnerButton("SCORE");
         addMenuButton(scoreButton);
 
         scoreButton.setOnAction(actionEvent -> showSubScene(scoreSubScene));
     }
 
-    private void createHelpButton(){
+    private void createHelpButton() {
         SpaceRunnerButton helpButton = new SpaceRunnerButton("HELP");
         addMenuButton((helpButton));
 
         helpButton.setOnAction(actionEvent -> showSubScene(helpSubScene));
     }
 
-    private void createCreditsButton(){
+    private void createCreditsButton() {
         SpaceRunnerButton creditsButton = new SpaceRunnerButton("CREDITS");
         addMenuButton(creditsButton);
 
         creditsButton.setOnAction(actionEvent -> showSubScene(creditsSubScene));
     }
 
-    private void createExitButton(){
+    private void createExitButton() {
         SpaceRunnerButton exitButton = new SpaceRunnerButton("EXIT");
         addMenuButton(exitButton);
 
         exitButton.setOnAction(event -> mainStage.close());
     }
 
-    private void createBackground(){
-        Image backgroundImage = new Image("View/Resources/blue.png", 256, 256, false, true);
+    private void createBackground() {
+        Image backgroundImage = new Image("/blue.png", 256, 256, false, true);
         BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
         mainPane.setBackground(new Background(background));
     }
 
-    private void createLogo(){
-        ImageView logo = new ImageView("View/Resources/logo.png");
+    private void createLogo() {
+        ImageView logo = new ImageView("/logo.png");
         logo.setLayoutX(300);
         logo.setLayoutY(50);
         logo.setOnMouseEntered(event -> logo.setEffect(new DropShadow(50, Color.BLUEVIOLET)));
-        logo.setOnMouseExited(event ->  logo.setEffect(null));
+        logo.setOnMouseExited(event -> logo.setEffect(null));
         mainPane.getChildren().add(logo);
     }
 
