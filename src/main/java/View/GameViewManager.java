@@ -98,13 +98,13 @@ public class GameViewManager {
     private void moveGameElements() {
 
         for (ImageView brownMeteor : brownMeteors) {
-            brownMeteor.setLayoutY(brownMeteor.getLayoutY() + 4);
-            brownMeteor.setRotate(brownMeteor.getRotate() + 2);
+            brownMeteor.setLayoutY(brownMeteor.getLayoutY() + 8);
+            brownMeteor.setRotate(brownMeteor.getRotate() + 4);
         }
 
         for (ImageView grayMeteor : grayMeteors) {
-            grayMeteor.setLayoutY(grayMeteor.getLayoutY() + 4);
-            grayMeteor.setRotate(grayMeteor.getRotate() + 2);
+            grayMeteor.setLayoutY(grayMeteor.getLayoutY() + 8);
+            grayMeteor.setRotate(grayMeteor.getRotate() + 4);
         }
 
     }
@@ -156,7 +156,7 @@ public class GameViewManager {
             }
             ship.setRotate(angle);
             if (ship.getLayoutX() > -20) {
-                ship.setLayoutX(ship.getLayoutX() - 3);
+                ship.setLayoutX(ship.getLayoutX() - 6);
             }
         }
         if (isRightKeyPressed && !isLeftKeyPressed) {
@@ -165,7 +165,7 @@ public class GameViewManager {
             }
             ship.setRotate(angle);
             if (ship.getLayoutX() < 522) {
-                ship.setLayoutX(ship.getLayoutX() + 3);
+                ship.setLayoutX(ship.getLayoutX() + 6);
             }
 
         }

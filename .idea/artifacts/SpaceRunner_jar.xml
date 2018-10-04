@@ -3,6 +3,9 @@
     <output-path>$PROJECT_DIR$/out/artifacts/SpaceRunner_jar</output-path>
     <root id="archive" name="SpaceRunner.jar">
       <element id="module-output" name="SpaceRunner" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+      </element>
     </root>
   </artifact>
 </component>
