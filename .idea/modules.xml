@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Main.iml" filepath="$PROJECT_DIR$/Main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NewMain.iml" filepath="$PROJECT_DIR$/NewMain.iml" />
       <module fileurl="file://$PROJECT_DIR$/SpaceRunner.iml" filepath="$PROJECT_DIR$/SpaceRunner.iml" />
     </modules>
   </component>

@@ -98,13 +98,13 @@ public class GameViewManager {
     private void moveGameElements() {
 
         for (ImageView brownMeteor : brownMeteors) {
-            brownMeteor.setLayoutY(brownMeteor.getLayoutY() + 8);
-            brownMeteor.setRotate(brownMeteor.getRotate() + 4);
+            brownMeteor.setLayoutY(brownMeteor.getLayoutY() + 10);
+            brownMeteor.setRotate(brownMeteor.getRotate() + 5);
         }
 
         for (ImageView grayMeteor : grayMeteors) {
-            grayMeteor.setLayoutY(grayMeteor.getLayoutY() + 8);
-            grayMeteor.setRotate(grayMeteor.getRotate() + 4);
+            grayMeteor.setLayoutY(grayMeteor.getLayoutY() + 10);
+            grayMeteor.setRotate(grayMeteor.getRotate() + 5);
         }
 
     }
@@ -156,7 +156,7 @@ public class GameViewManager {
             }
             ship.setRotate(angle);
             if (ship.getLayoutX() > -20) {
-                ship.setLayoutX(ship.getLayoutX() - 6);
+                ship.setLayoutX(ship.getLayoutX() - 7);
             }
         }
         if (isRightKeyPressed && !isLeftKeyPressed) {
@@ -165,7 +165,7 @@ public class GameViewManager {
             }
             ship.setRotate(angle);
             if (ship.getLayoutX() < 522) {
-                ship.setLayoutX(ship.getLayoutX() + 6);
+                ship.setLayoutX(ship.getLayoutX() + 7);
             }
 
         }
@@ -198,8 +198,8 @@ public class GameViewManager {
     }
 
     private void moveBackground() {
-        gridPane1.setLayoutY(gridPane1.getLayoutY() + 0.5);
-        gridPane2.setLayoutY(gridPane2.getLayoutY() + 0.5);
+        gridPane1.setLayoutY(gridPane1.getLayoutY() + 1);
+        gridPane2.setLayoutY(gridPane2.getLayoutY() + 1);
 
         if (gridPane1.getLayoutY() >= 1024) {
             gridPane1.setLayoutY(-1024);

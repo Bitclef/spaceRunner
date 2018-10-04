@@ -1,2 +1,2 @@
-Main-Class: Application.Main
+Main-Class: Application.NewMain
 Manifest-Version: 1.0
