@@ -37,9 +37,9 @@ public class GameViewManager {
 
     private ImageView star;
     private SmallInfoLabel pointsLabel;
-    private ImageView[] playerLifes;
+    private ImageView[] playerLives;
     private int playerLife;
-    private int points;
+    private static int points = 0;
     private final static String GOLD_STAR_IMAGE = "/gold_star.png";
 
     private final static int STAR_RADIUS = 12;
@@ -50,6 +50,14 @@ public class GameViewManager {
         initializeStage();
         createKeyListeners();
         randomPositionGenerator = new Random();
+    }
+
+    public static int getPoints() {
+        return points;
+    }
+
+    public static void setPoints(int points){
+        GameViewManager.points = points;
     }
 
     private void createKeyListeners() {
@@ -100,13 +108,13 @@ public class GameViewManager {
         pointsLabel.setLayoutX(460);
         pointsLabel.setLayoutY(20);
         gamePane.getChildren().add(pointsLabel);
-        playerLifes = new ImageView[3];
+        playerLives = new ImageView[3];
 
-        for(int i = 0; i < playerLifes.length; i++){
-            playerLifes[i] = new ImageView(chosenShip.getUrlLife());
-            playerLifes[i].setLayoutX(455 + (i * 50));
-            playerLifes[i].setLayoutY(80);
-            gamePane.getChildren().add(playerLifes[i]);
+        for(int i = 0; i < playerLives.length; i++){
+            playerLives[i] = new ImageView(chosenShip.getUrlLife());
+            playerLives[i].setLayoutX(455 + (i * 50));
+            playerLives[i].setLayoutY(80);
+            gamePane.getChildren().add(playerLives[i]);
         }
 
         brownMeteors = new ImageView[5];
@@ -282,7 +290,7 @@ public class GameViewManager {
     }
 
     private void removeLife(){
-        gamePane.getChildren().remove(playerLifes[playerLife]);
+        gamePane.getChildren().remove(playerLives[playerLife]);
         playerLife--;
         if(playerLife < 0){
             gameStage.close();
