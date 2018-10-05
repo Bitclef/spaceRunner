@@ -1,6 +1,7 @@
 package View;
 
 import Model.SHIP;
+import Model.SmallInfoLabel;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
@@ -15,7 +16,7 @@ import java.util.Random;
 public class GameViewManager {
 
     private static final int GAME_WIDTH = 600;
-    private static final int GAME_HEIGHT = 700;
+    private static final int GAME_HEIGHT = 800;
     private final static String METEOR_BROWN_IMAGE = "/ShipChooser/meteor_brown.png";
     private final static String METEOR_GRAY_IMAGE = "/ShipChooser/meteor_gray.png";
     private final String BACKGROUND_IMAGE = "/blue.png";
@@ -33,6 +34,17 @@ public class GameViewManager {
     private GridPane gridPane2;
     private ImageView[] brownMeteors;
     private ImageView[] grayMeteors;
+
+    private ImageView star;
+    private SmallInfoLabel pointsLabel;
+    private ImageView[] playerLifes;
+    private int playerLife;
+    private int points;
+    private final static String GOLD_STAR_IMAGE = "/gold_star.png";
+
+    private final static int STAR_RADIUS = 12;
+    private final static int SHIP_RADIUS = 27;
+    private final static int METEOR_RADIUS = 27;
 
     public GameViewManager() {
         initializeStage();
@@ -73,13 +85,30 @@ public class GameViewManager {
         this.menuStage.hide();
         createBackground();
         createShip(chosenShip);
-        createGameElements();
+        createGameElements(chosenShip);
 
         createGameLoop();
         gameStage.show();
     }
 
-    private void createGameElements() {
+    private void createGameElements(SHIP chosenShip) {
+        playerLife = 2;
+        star = new ImageView(GOLD_STAR_IMAGE);
+        setNewElementPosition(star);
+        gamePane.getChildren().add(star);
+        pointsLabel = new SmallInfoLabel("POINTS : 00");
+        pointsLabel.setLayoutX(460);
+        pointsLabel.setLayoutY(20);
+        gamePane.getChildren().add(pointsLabel);
+        playerLifes = new ImageView[3];
+
+        for(int i = 0; i < playerLifes.length; i++){
+            playerLifes[i] = new ImageView(chosenShip.getUrlLife());
+            playerLifes[i].setLayoutX(455 + (i * 50));
+            playerLifes[i].setLayoutY(80);
+            gamePane.getChildren().add(playerLifes[i]);
+        }
+
         brownMeteors = new ImageView[5];
         for (int i = 0; i < brownMeteors.length; i++) {
             brownMeteors[i] = new ImageView(METEOR_BROWN_IMAGE);
@@ -96,33 +125,33 @@ public class GameViewManager {
     }
 
     private void moveGameElements() {
-        boolean leftRight = false;
-        for (ImageView brownMeteor : brownMeteors) {
-            brownMeteor.setLayoutY(brownMeteor.getLayoutY() + 10);
-            if(leftRight){
-                brownMeteor.setRotate(brownMeteor.getRotate() + 5);
-                leftRight = false;
-            }else{
-                brownMeteor.setRotate(brownMeteor.getRotate() - 5);
-                leftRight = true;
-            }
-        }
+        gameAsteroidsElement(brownMeteors);
+        gameAsteroidsElement(grayMeteors);
 
-        for (ImageView grayMeteor : grayMeteors) {
-            grayMeteor.setLayoutY(grayMeteor.getLayoutY() + 10);
-            if(leftRight){
-                grayMeteor.setRotate(grayMeteor.getRotate() + 5);
-                leftRight = false;
-            }else{
-                grayMeteor.setRotate(grayMeteor.getRotate() - 5);
-                leftRight = true;
-            }
-
-        }
+        star.setLayoutY(star.getLayoutY() + 7);
+        star.setRotate(star.getRotate() + 3);
 
     }
 
+    private void gameAsteroidsElement(ImageView[] fallingObject) {
+        boolean leftRight = false;
+        for (ImageView object : fallingObject) {
+            object.setLayoutY(object.getLayoutY() + 10);
+            if(leftRight){
+                object.setRotate(object.getRotate() + 5);
+                leftRight = false;
+            }else{
+                object.setRotate(object.getRotate() - 5);
+                leftRight = true;
+            }
+        }
+    }
+
     private void checkIfElementsAreBelowTheShipAndRelocate() {
+
+        if(star.getLayoutY() > 1200){
+            setNewElementPosition(star);
+        }
 
         for (ImageView brownMeteors : brownMeteors) {
             if (brownMeteors.getLayoutY() > 900)
@@ -154,6 +183,7 @@ public class GameViewManager {
                 moveBackground();
                 moveGameElements();
                 checkIfElementsAreBelowTheShipAndRelocate();
+                checkIfElementsCollide();
                 moveShip();
 
             }
@@ -221,6 +251,48 @@ public class GameViewManager {
         if (gridPane2.getLayoutY() >= 1024) {
             gridPane2.setLayoutY(-1024);
         }
+    }
+
+    private void checkIfElementsCollide(){
+
+        if(SHIP_RADIUS + STAR_RADIUS > calculateDistance(ship.getLayoutX() + 49, star.getLayoutX() + 15, ship.getLayoutY() + 3, star.getLayoutY() + 15)){
+            setNewElementPosition(star);
+            points++;
+            String textToSet = "POINTS : ";
+            if(points < 10){
+                textToSet += "0";
+            }
+            pointsLabel.setText(textToSet + points);
+        }
+
+        for (ImageView brownMeteor : brownMeteors) {
+            if (METEOR_RADIUS + SHIP_RADIUS > calculateDistance(ship.getLayoutX() + 49, brownMeteor.getLayoutX() + 20, ship.getLayoutY() + 37, brownMeteor.getLayoutY() + 20)) {
+                removeLife();
+                setNewElementPosition(brownMeteor);
+            }
+        }
+
+        for (ImageView grayMeteors : grayMeteors) {
+            if (METEOR_RADIUS + SHIP_RADIUS > calculateDistance(ship.getLayoutX() + 49, grayMeteors.getLayoutX() + 20, ship.getLayoutY() + 37, grayMeteors.getLayoutY() + 20)) {
+                removeLife();
+                setNewElementPosition(grayMeteors);
+            }
+        }
+
+    }
+
+    private void removeLife(){
+        gamePane.getChildren().remove(playerLifes[playerLife]);
+        playerLife--;
+        if(playerLife < 0){
+            gameStage.close();
+            gameTimer.stop();
+            menuStage.show();
+        }
+    }
+
+    private double calculateDistance(double x1, double x2, double y1, double y2){
+        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
     }
 
 }
